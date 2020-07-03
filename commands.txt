@@ -1,0 +1,35 @@
+Deploy static app to Kubernetes
+
+**Clone HTML static page to local**
+git clone https://github.com/jpbueno/lightbulb-iot-demo.git
+
+**Create Dockerfile copying static page to Nginx**
+
+vim Dockerfile
+
+FROM nginx:alpine
+COPY . /usr/share/nginx/html
+
+**Build Docker image**
+
+
+docker build -t lightbulb-jp:v1 .
+
+docker images
+
+**Run and test docker image**
+
+docker run -d --name lightbulb-jp -p 80:80 lightbulb-jp:v1
+
+curl 0.0.0.0:80
+
+
+**Login to docker hub**
+docker login --username=[your-username]
+
+**Tag and push docker image to docker hub**
+
+
+docker tag c618be1a2cd1 [your-username]/lightbulb:v1
+
+docker push [your-username]/lightbulb:v1
